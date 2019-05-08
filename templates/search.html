@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Search</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" type="text/css"/>
 </head>
 <body>
-    {% for r  in results %}
-    {{r}}</br>
-    {% endfor %}
+        {% if sr is defined %}
+            <p>SR is{{sr}}</p>
+        {% endif %}
+        {% if nh is defined %}
+            <p>NH is {{nh}}</p>
+        {% endif %}
+        {% if pc is defined %}
+            <p>PC DEFINED</p>
+            <p>{{pc}}</p>
+            <hr/>
+            <div id="results">
+            {% if sr > 9 %}
+                {%for r in results %}
+                    <p>{{r}}</p>
+                {% endfor %}
+            {% endif %}
+            {% for ran in range(sr,nh)%}
+                <p>{{ran}}</p>
+            {% endfor %}
+
+            
+            </div>
+            
+        {% endif %}
     <p class="well">
             Number of Results: {{results}}</br>
             Pages: {{pages}} </br>
@@ -18,10 +40,15 @@
     </p>
    
 
-    {% if pc is defined %}
-    <ul>
+    {% if pc is defined %}       
+    <ul id="pagination">
         {% for pn in range(pc) %}
-        <li><a href="#">{{pn + 1}}</a></li>
+            {% if loop.first %}
+            <li><a href="{{  url_for('search_paginated', page=pn + 1, sr=0) }}">{{pn + 1}}</a></li>
+            {% else %}
+            <li><a href="{{  url_for('search_paginated', page=pn + 1, sr=(pn + 1) * 10) }}">{{pn + 1}}</a></li>
+            {% endif %}
+        
         {% endfor %}
     </ul>
     {% endif %}
