@@ -6,6 +6,9 @@
 .env
 /env
 
+### Logs ###
+log.txt
+
 ### Flask ###
 instance/*
 !instance/.gitignore

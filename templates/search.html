@@ -19,18 +19,15 @@
             <p>{{pc}}</p>
             <hr/>
             <div id="results">
-            {% if sr > 9 %}
-                {%for r in results %}
-                    <p>{{r}}</p>
-                {% endfor %}
-            {% endif %}
-            {% for ran in range(sr,nh)%}
-                <p>{{ran}}</p>
+            {% for res in results  %}
+                {% if loop.index > sr and loop.index <= sr + 10 %}
+                    <p>{{loop.index}} - {{res}}</p>
+                {% endif %}
             {% endfor %}
 
             
             </div>
-            
+            <hr/>
         {% endif %}
     <p class="well">
             Number of Results: {{results}}</br>
@@ -44,9 +41,9 @@
     <ul id="pagination">
         {% for pn in range(pc) %}
             {% if loop.first %}
-            <li><a href="{{  url_for('search_paginated', page=pn + 1, sr=0) }}">{{pn + 1}}</a></li>
+            <li><a href="{{  url_for('search', page=pn , sr=0) }}">{{pn}}</a></li>
             {% else %}
-            <li><a href="{{  url_for('search_paginated', page=pn + 1, sr=(pn + 1) * 10) }}">{{pn + 1}}</a></li>
+            <li><a href="{{  url_for('search', page=pn + 1, sr=(pn * 10)) }}">{{pn}}</a></li>
             {% endif %}
         
         {% endfor %}
