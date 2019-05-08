@@ -13,10 +13,16 @@ def search():
         @arg - page = The current page number
         @arg - sr = The start index for the results page, 20 means that it will start at index 20
     '''
-    if request.args.get('page') != "":
+    #Check to see if any parameters are defined
+    if request.args.get('page'):
         page = int(request.args.get('page'))
         sr = int(request.args.get('sr'))
         currentpagenum = int(page)
+    #If not, assign the default values
+    else:
+        page = 0
+        sr = 0
+        currentpagenum = 0    
     resultnum = ['Joseph Allen', 'Autumn Welch', 'Valerie Fields', 'Margaret Mccarty', 'Patricia Yu', 'Kelsey Burton', 'Charles Chandler', 'Michelle Washington', 'Wendy Morris', 'Sherri Perez', 'Holly Campbell', 'Karen Cisneros MD', 'Jessica Perry', 'Kimberly Miranda', 'Michael Lawrence']
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results
